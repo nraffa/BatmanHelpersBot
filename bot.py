@@ -22,6 +22,11 @@ logger = logging.getLogger(__name__)
 
 TOKEN = '5337208924:AAGWULDuW_JBpViTcVSx0wxChN54z-3jvlo'
 
+import os
+PORT = int(os.environ.get('PORT', 88))
+
+
+
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 
@@ -134,7 +139,12 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_polling()
+    #updater.start_polling()
+
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN,
+                          webhook_url = 'https://batman-helper-bot.herokuapp.com/' + TOKEN )
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
